@@ -1,0 +1,77 @@
+integrator               = md
+tinit                    = 0.0
+dt                       = 0.020
+nsteps                   = 5000000 ; 100 ns
+
+nstlog                   = 2500
+nstenergy                = 2500
+nstxout-compressed       = 2500
+compressed-x-precision   = 100
+compressed-x-grps	 = protein_ION
+
+cutoff-scheme            = Verlet
+nstlist                  = 20
+ns_type                  = grid
+pbc                      = xyz
+verlet-buffer-tolerance  = 0.005
+
+epsilon_r                = 15
+coulombtype              = reaction-field
+rcoulomb                 = 1.1
+vdw_type                 = cutoff
+vdw-modifier             = Potential-shift-verlet
+rvdw                     = 1.1
+
+tcoupl                   = v-rescale
+tc-grps                  = protein_ION solute
+tau_t                    = 1.0 1.0
+ref_t                    = 303.15 303.15
+
+; Pressure coupling:
+Pcoupl                   = Parrinello-rahman
+Pcoupltype               = isotropic
+tau_p                    = 12.0
+compressibility          = 4.5e-5
+ref_p                    = 1.0
+
+; GENERATE VELOCITIES FOR STARTUP RUN:
+gen_vel                  = no
+refcoord_scaling         = all
+
+; Pull code
+pull = yes
+pull-ngroups = 4
+pull-ncoords = 3
+pull-group1-name = a_966
+pull-group2-name = a_334
+pull-group3-name = a_343
+pull-group4-name = a_358
+
+
+pull-coord1-type = umbrella
+pull-coord1-geometry = distance ; simple distance increase
+pull-coord1-groups = 1 2
+pull-coord1-dim = Y Y Y
+pull-coord1-rate = 0.00 ; not pull, just distance restraint at a reference
+;distance bw 2 groups
+pull-coord1-k = 10000 ; kJ mol^-1 nm^-2
+pull-coord1-start = yes ; define initial COM distance > 0
+
+pull-coord2-type = umbrella
+pull-coord2-geometry = distance ; simple distance increase
+pull-coord2-groups = 1 3
+pull-coord2-dim = Y Y Y
+pull-coord2-rate = 0.00 ; not pull, just distance restraint at a reference
+;distance bw 2 groups
+pull-coord2-k = 10000 ; kJ mol^-1 nm^-2
+pull-coord2-start = yes ; define initial COM distance > 0
+
+pull-coord3-type = umbrella
+pull-coord3-geometry = distance ; simple distance increase
+pull-coord3-groups = 1 4
+pull-coord3-dim = Y Y Y
+pull-coord3-rate = 0.00 ; not pull, just distance restraint at a reference
+;distance bw 2 groups
+pull-coord3-k = 10000 ; kJ mol^-1 nm^-2
+pull-coord3-start = yes ; define initial COM distance > 0
+
