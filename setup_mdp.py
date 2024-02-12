@@ -71,6 +71,9 @@ for i,index in enumerate(SC2_list):
                 "pull-coord{}-start = yes ; define initial COM distance > 0\n".format(i+1),
                 "\n"]
 
+
+##### Constrain distances between other beads in HIS residues
+
 #for i,index in enumerate(other_list):
 #    pull_code += ["pull-coord{}-type = umbrella\n".format(i+len(SC2_list)+1),
 #                "pull-coord{}-geometry = distance ; simple distance increase\n".format(i+len(SC2_list)+1),
